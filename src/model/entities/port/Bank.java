@@ -2,6 +2,8 @@ package model.entities.port;
 
 public interface Bank {
 
+	
+	
     /**
      * Bank load cargo to ship
      * @param max - capacity
@@ -9,6 +11,7 @@ public interface Bank {
      */
     public int withdrawByn(int max);
     public int withdrawUsd(int max);
+    
     /**
      * Client place some cargo to port
      * @param capacity
@@ -32,6 +35,26 @@ public interface Bank {
      * @return
      */
     public int getBynAvailable();
-
     public int getUsdAvailable();
+    public void setBynAvailable(int val);
+    public void setUsdAvailable(int val);
+    
+    public int getTreasureByn();
+    public int getTreasureUsd();
+    public void setTreasureByn(int val);
+    public void setTreasureUsd(int val);
+    
+    public boolean getFillUsd();
+    public boolean getFillByn();
+    public void setFillUsd(boolean val);
+    public void setFillByn(boolean val);
+    
+    public boolean getTakeUsd();
+    public boolean getTakeByn();
+    public void setTakeUsd(boolean val);
+    public void setTakeByn(boolean val);
+    
+    public int getMaxUsd();
+    public int getMaxByn();
+	
 }

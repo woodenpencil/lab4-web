@@ -118,7 +118,7 @@ public class Client {
     
     @Override
     public String toString() {
-        String str = "\n********\nClient " + number + ":\nCurrent amount of usd: " + currentAmountOfUsd+"\n********\nClient " + number + ":\nCurrent amount of byn: " + currentAmountOfByn;
+        String str = "\n********\nClient " + number + ":\nCurrent amount of usd: " + currentAmountOfUsd+":\nCurrent amount of byn: " + currentAmountOfByn+":\nWants to deposit byn: "+bynToDeposit+":\nWants to deposit usd: "+usdToDeposit+":\nWants to withdraw byn: "+bynToWithdraw+":\nWants to withdraw usd: "+usdToWithdraw;
         return str;
     }
 }

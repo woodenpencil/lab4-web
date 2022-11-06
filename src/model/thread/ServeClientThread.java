@@ -49,6 +49,7 @@ public class ServeClientThread implements Runnable{
                 client.setCurrentAmountOfByn(client.getCurrentAmountOfByn()-deposit);
             }
             System.out.println("********Current amount of byn in bank: " + bank.getBynAvailable());
+            System.out.println("********Current treasure of byn in bank: " + bank.getTreasureByn());
             
             showClientsByn();
             
@@ -61,6 +62,8 @@ public class ServeClientThread implements Runnable{
                 client.setCurrentAmountOfUsd(client.getCurrentAmountOfUsd()-deposit);
             }
             System.out.println("********Current amount of usd in bank: " + bank.getUsdAvailable());
+            System.out.println("********Current treasure of usd in bank: " + bank.getTreasureUsd());
+            
             showClientsUsd();
         }
         

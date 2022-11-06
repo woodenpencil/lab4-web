@@ -57,7 +57,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("*************\nSynchronized bank");
-        Work(new SynchronizedBank(2, 1000, 1000));
+        Work(new SynchronizedBank(2, 30, 30, 100, 100));
         //System.out.println("\n*************\nLock variant");
         //Work(new LockBank(2, 1000));
     }

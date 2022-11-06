@@ -7,8 +7,6 @@ public class SynchronizedBank implements Bank {
     public int maxUsdAvailable;
     public int bynAvailable = 0;
     public int usdAvailable = 0;
-    public volatile int maxUsd;
-    public volatile int maxByn;
     public volatile boolean fillUsd;
     public volatile boolean fillByn;
     public volatile boolean takeUsd;
@@ -21,10 +19,13 @@ public class SynchronizedBank implements Bank {
     private int clientsBeingServed = 0;
     
 
-    public SynchronizedBank(int cashierCount, int maxByn, int maxUsd) {
+    public SynchronizedBank(int cashierCount, int maxByn, int maxUsd, int treasureByn, int treasureUsd) {
         this.cashierCount = cashierCount;
         this.maxBynAvailable = maxByn;
         this.maxUsdAvailable = maxUsd;
+        this.treasureByn = treasureByn;
+        this.treasureUsd = treasureUsd;
+        
     }
 
     public int withdrawByn(int amount) {
@@ -96,15 +97,15 @@ public class SynchronizedBank implements Bank {
             bynAvailable -= max;
             return max;
         }
-        if(bynAvailable+treasureByn>=max && maxBynAvailable<=max) {
+        if(maxBynAvailable<=max) {
         	fillByn = true;
+        	return 0;
         }
         else {
             int byn = bynAvailable;
             bynAvailable = 0;
             return byn;
         }
-        return 0;
     }
     private synchronized int tryWithdrawUsd(int max) {
         if (usdAvailable >= max) {
@@ -126,7 +127,77 @@ public class SynchronizedBank implements Bank {
     public int getUsdAvailable() {
         return usdAvailable;
     }
+    @Override
+    public void setBynAvailable(int val) {
+    	bynAvailable+=val;
+    }
+    @Override
+    public void setUsdAvailable(int val) {
+    	usdAvailable+=val;
+    }
     
+    
+    @Override
+    public int getTreasureByn() {
+        return treasureByn;
+    }
+    @Override
+    public int getTreasureUsd() {
+        return treasureUsd;
+    }
+    @Override
+    public void setTreasureByn(int val) {
+        treasureByn+=val;
+    }
+    @Override
+    public void setTreasureUsd(int val) {
+        treasureUsd+=val;
+    }
+    
+    
+    @Override
+    public boolean getFillUsd() {
+        return fillUsd;
+    }
+    @Override
+    public boolean getFillByn() {
+        return fillByn;
+    }
+	@Override
+    public void setFillUsd(boolean val) {
+        fillUsd=val;
+    }
+    @Override
+    public void setFillByn(boolean val) {
+        fillByn=val;
+    }
+    
+    @Override
+    public boolean getTakeUsd() {
+        return takeUsd;
+    }
+    @Override
+    public boolean getTakeByn() {
+        return takeByn;
+    }
+	@Override
+    public void setTakeUsd(boolean val) {
+        takeUsd=val;
+    }
+    @Override
+    public void setTakeByn(boolean val) {
+        takeByn=val;
+    }
+    
+    
+    @Override
+    public int getMaxUsd() {
+        return maxUsdAvailable;
+    }
+    @Override
+    public int getMaxByn() {
+        return maxBynAvailable;
+    }
 
     private synchronized boolean tryDepositByn(int amount) {
         if (bynAvailable + amount > maxBynAvailable) {
@@ -145,7 +216,7 @@ public class SynchronizedBank implements Bank {
 
     @Override
     public String toString() {
-        String str = "\n=============Bank=============\nCount of cashiers: " + cashierCount + "\nMax money available: " + maxBynAvailable;
+        String str = "\n=============Bank=============\nCount of cashiers: " + cashierCount + "\nMax byn available: " + maxBynAvailable+"\nMax usd available: " + maxUsdAvailable;
         return str;
     }
 }
